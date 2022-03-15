@@ -1,12 +1,12 @@
 import telebot;
 
-bot = telebot.TeleBot('5133581618:AAEOO5r7JO7-gK5xmTWhFkwnnz9qQbMgH9E');
+bot = telebot.TeleBot('');
 
 
 def cmdHelp( msg ):
     bot.send_message( msg.from_user.id,  'This is AirOfK bot' )
     
-def cmdRegister( msg ):
+def cmdRegister( msg ):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
     bot.send_message( msg.from_user.id,  'Stub: register a station' )
     
 def cmdStatus( msg ):
