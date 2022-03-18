@@ -2,29 +2,56 @@ import telebot;
 
 bot = telebot.TeleBot('');
 
+helplist = {
+    "help":     "Prints this message",
+    "register": "Register your station",
+    "status":   "Report status for the town",
+    "ping":     "Check if the stations work",
+    "get":      "Request data archive for a given day"
+}
 
-def cmdHelp( msg ):
-    bot.send_message( msg.from_user.id,  'This is AirOfK bot' )
-    
-def cmdRegister( msg ):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
-    bot.send_message( msg.from_user.id,  'Stub: register a station' )
-    
-def cmdStatus( msg ):
-    bot.send_message( msg.from_user.id, 'Stub: current status is UNKNOWN' )
-    
-def cmdDefault( msg ):
-    bot.send_message( msg.from_user.id, 'Sorry, I don\'t know this command' )
+
+def cmdHelp(msg):
+    bot.send_message(msg.from_user.id, 'This is AirOfK bot')
+
+
+def cmdRegister(msg):
+    bot.send_message(msg.from_user.id, 'Stub: cannot register a station now')
+
+
+def cmdStatus(msg):
+    bot.send_message(msg.from_user.id, 'Stub: current status is UNKNOWN')
+
+
+def cmdPing( msg ):
+    bot.send_message( msg.from_user.id, 'Stub: cannot see if all the stations are online')
+
+
+def cmdGet( msg ):
+    bot.send_message( msg.from_user.id, 'Stub: no data available for download' )
+
+
+def cmdDefault(msg):
+    bot.send_message(msg.from_user.id, 'Sorry, I don\'t know this command')
 
 
 commandDict = {
-    "help": cmdHelp,
+    "help":     cmdHelp,
+    "reg":      cmdRegister,
     "register": cmdRegister,
-    "status": cmdStatus 
+    "stat":     cmdStatus,
+    "state":    cmdStatus,
+    "status":   cmdStatus,
+    "ping":     cmdPing,
+    "get":      cmdGet
 }
 
-@bot.message_handler( content_types=['text'] )
-def get_text_messages( message ):
-    commandDict.get( message.text, cmdDefault )( message )
-    
-    
-bot.polling( none_stop = True, interval = 0 )
+commandsOnly = list(commandDict.keys())
+
+
+@bot.message_handler(commands=commandsOnly)
+def get_text_messages(message):
+    commandDict.get(message.text, cmdDefault)(message)
+
+
+bot.polling(none_stop=True, interval=0)
